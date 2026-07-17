@@ -1,0 +1,24 @@
+package com.nelio.workshopmongo.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nelio.workshopmongo.domain.Post;
+import com.nelio.workshopmongo.repository.PostRepository;
+import com.nelio.workshopmongo.services.exception.ObjectNotFoundException;
+
+@Service
+public class PostService {
+
+	@Autowired
+	private PostRepository repo;
+
+	public Post findById(String id) {
+		Post post = repo.findById(id).orElse(null);
+		if (post == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado");
+		}
+		return post;
+	}
+
+}
